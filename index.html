@@ -1,0 +1,422 @@
+<?php
+// Dados Dinâmicos da Empresa
+$empresa = [
+    "razao_social" => "66.809.853 Camila Galter Soares",
+    "nome_fantasia" => "Camila Galter Soares",
+    "cnpj" => "66.809.853/0001-87",
+    "data_abertura" => "15/05/2026",
+    "porte" => "Microempreendedor Individual (MEI)",
+    "natureza_juridica" => "Empresário (Individual)",
+    "simples_nacional" => "Sim",
+    "mei" => "Sim",
+    "capital_social" => "R$ 9.000,00",
+    "tipo" => "Matriz",
+    "situacao" => "Ativa",
+    "email" => "ga****@****.com.br",
+    "telefone" => "(11) 999****-****",
+    "endereco" => [
+        "logradouro" => "Rua Caranda, 19",
+        "bairro" => "Conjunto Habitacional - Setor A",
+        "municipio" => "Itapevi",
+        "uf" => "SP",
+        "cep" => "06665-045"
+    ]
+];
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?php echo $empresa['nome_fantasia']; ?> | Cartão CNPJ & Contato</title>
+
+  <!-- Swiper CSS para o Slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Font Awesome para Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-color: #0f172a;
+      --secondary-color: #2563eb;
+      --accent-color: #1d4ed8;
+      --text-color: #334155;
+      --bg-light: #f8fafc;
+      --white: #ffffff;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #93c5fd;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 60vh;
+    }
+
+    .swiper-slide {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.75);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      color: var(--white);
+      max-width: 850px;
+      padding: 0 20px;
+    }
+
+    .slide-content h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .slide-content p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background-color: var(--secondary-color);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-color);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 3.5rem auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      font-size: 1.8rem;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: var(--secondary-color);
+      margin: 8px auto 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--secondary-color);
+    }
+
+    .info-card h3 {
+      font-size: 0.85rem;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .info-card p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #dcfce7;
+      color: #15803d;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .badge-blue {
+      display: inline-block;
+      background-color: #dbeafe;
+      color: #1e40af;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-item i {
+      font-size: 1.3rem;
+      color: var(--secondary-color);
+      margin-right: 1rem;
+      margin-top: 4px;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .slide-content h1 { font-size: 1.5rem; }
+      .slide-content p { font-size: 1rem; }
+      .swiper { height: 50vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-building-user"></i> <?php echo $empresa['nome_fantasia']; ?>
+    </div>
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#registro">Informações</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <!-- Slider Hero Section -->
+  <section id="inicio">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        
+        <!-- Slide 1 -->
+        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200');">
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h1><?php echo $empresa['nome_fantasia']; ?></h1>
+            <p><?php echo $empresa['porte']; ?> — Itapevi / SP</p>
+            <a href="#contato" class="btn">Entre em Contato</a>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200');">
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h1>Localização & Atendimento</h1>
+            <p><?php echo $empresa['endereco']['logradouro']; ?> — <?php echo $empresa['endereco']['municipio']; ?>/<?php echo $empresa['endereco']['uf']; ?></p>
+            <a href="#registro" class="btn">Ver Informações Cadastrais</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-button-next" style="color: #fff;"></div>
+      <div class="swiper-button-prev" style="color: #fff;"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!-- Informações de Registro -->
+  <section id="registro" class="container">
+    <h2 class="section-title">Informações de Registro</h2>
+    
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Razão Social</h3>
+        <p><?php echo $empresa['razao_social']; ?></p>
+      </div>
+
+      <div class="info-card">
+        <h3>CNPJ</h3>
+        <p><?php echo $empresa['cnpj']; ?></p>
+      </div>
+
+      <div class="info-card">
+        <h3>Situação Cadastral</h3>
+        <p><span class="badge"><?php echo $empresa['situacao']; ?></span> (Desde <?php echo $empresa['data_abertura']; ?>)</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Porte</h3>
+        <p><span class="badge-blue">MEI</span> - Microempreendedor Individual</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Natureza Jurídica</h3>
+        <p><?php echo $empresa['natureza_juridica']; ?></p>
+      </div>
+
+      <div class="info-card">
+        <h3>Opção pelo Simples / MEI</h3>
+        <p>Sim (Desde <?php echo $empresa['data_abertura']; ?>)</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Capital Social</h3>
+        <p><?php echo $empresa['capital_social']; ?></p>
+      </div>
+
+      <div class="info-card">
+        <h3>Tipo</h3>
+        <p><?php echo $empresa['tipo']; ?></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato e Localização -->
+  <section id="contato" class="container">
+    <h2 class="section-title">Localização & Contato</h2>
+
+    <div class="contact-container">
+      <div>
+        <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Canais de Atendimento</h3>
+        
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <div>
+            <strong>E-mail:</strong><br>
+            <?php echo $empresa['email']; ?>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <strong>Telefone:</strong><br>
+            <?php echo $empresa['telefone']; ?>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Endereço para Correspondência</h3>
+        
+        <div class="contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div>
+            <?php echo $empresa['razao_social']; ?><br>
+            <?php echo $empresa['endereco']['logradouro']; ?><br>
+            <strong>Bairro:</strong> <?php echo $empresa['endereco']['bairro']; ?><br>
+            <?php echo $empresa['endereco']['municipio']; ?> - <?php echo $empresa['endereco']['uf']; ?> | <strong>CEP:</strong> <?php echo $empresa['endereco']['cep']; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; <?php echo date('Y'); ?> <?php echo $empresa['nome_fantasia']; ?> (CNPJ: <?php echo $empresa['cnpj']; ?>). Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</body>
+</html>
